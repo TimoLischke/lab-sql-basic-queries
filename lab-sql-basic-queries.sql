@@ -24,14 +24,19 @@ SELECT COUNT(staff_id) AS nr_employees FROM staff;
 SELECT COUNT(film_id) AS nr_films FROM film;
 SELECT DISTINCT inventory_id, COUNT(rental_id) AS nr_rentals FROM rental GROUP BY inventory_id;
 SELECT COUNT(DISTINCT inventory_id) AS nr_rented_films FROM rental;
+SELECT DISTINCT return_date FROM rental;
+SELECT COUNT(DISTINCT inventory_id) AS nr_available_films FROM rental
+WHERE return_date > rental_date;
+SELECT COUNT(DISTINCT inventory_id) AS nr_rented_films FROM rental
+WHERE return_date="";
 -- Determine the number of distinct last names of the actors in the database.
 SELECT COUNT(DISTINCT last_name) AS distinct_last_name FROM actor;
 -- Retrieve the 10 longest films.
-SELECT title, length FROM film ORDER BY length DESC, title ASC LIMIT 5;
+SELECT title, length FROM film ORDER BY length DESC, title ASC LIMIT 10
 -- Use filtering techniques in order to:
--- Retrieve all actors with the first name "SCARLETT".
-SELECT first_name, last_name FROM actor
-WHERE first_name="SCARLETT" GROUP BY last_name;
+-- Retrieve all actors with the first name "SCARLETT"
+SELECT first_name, last_name FROM actor WHERE first_name="SCARLETT" GROUP BY last_name;
+SELECT first_name, last_name FROM actor WHERE first_name="SCARLETT" GROUP BY last_name;
 -- Retrieve all movies that have ARMAGEDDON in their title 
 -- and have a duration longer than 100 minutes. 
 -- Hint: use `LIKE` operator. (https://www.w3schools.com/sql/sql_like.asp)
@@ -39,4 +44,4 @@ SELECT title, length FROM film WHERE length>100 AND title LIKE "%ARMAGEDDON%" OR
 -- Determine the number of films that include Behind the Scenes content
 SELECT DISTINCT special_features FROM film;
 SELECT COUNT(film_id) as nr_films_behind_scenes FROM film
-WHERE special_features LIKE "%Behind%";
+WHERE special_features LIKE "%Behind the Scenes%";
